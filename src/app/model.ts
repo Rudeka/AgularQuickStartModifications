@@ -4,7 +4,8 @@ export class Customer {
     address: Address;
 }
 
-export class Address {
+export class Address 
+{
     city: string;
     street: string;
     state: string;

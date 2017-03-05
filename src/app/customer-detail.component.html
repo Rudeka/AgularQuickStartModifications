@@ -1,0 +1,9 @@
+<h1>{{customer.name}}</h1>
+
+<p><i>{{customer.name}} is at {{customer.address.street}} in {{customer.address.city}} 
+      {{customer.address.state}} in the 
+      {{customer.address.region}} region</i></p>
+
+<fieldset>
+    <label>Name: <input [(ngModel)]="customer.name"></label>
+</fieldset>
