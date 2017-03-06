@@ -12,7 +12,7 @@ export class CustomerDetailComponent {
 
   right() {
     this.shiftCustomerDetail.emit(1);
-  }
+  } 
 
   left() {
     this.shiftCustomerDetail.emit(-1);
