@@ -1,4 +1,7 @@
-<h1>{{customer.name}}</h1>
+<h1>
+    <button (click)="left()"><</button>{{customer.name}}
+    <button (click)="right()">></button>
+</h1>
 
 <p><i>{{customer.name}} is at {{customer.address.street}} in {{customer.address.city}} 
       {{customer.address.state}} in the 
