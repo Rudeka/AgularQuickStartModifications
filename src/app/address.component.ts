@@ -28,8 +28,6 @@ export class AddressComponent implements OnInit {
         this.loggerService.log(`Getting addresses...`);
         this.dataService.getAddresses().subscribe(receivedAddresses => {
             this.addresses = receivedAddresses;
-        }, (errorMsg: string) => {
-            alert(errorMsg);
         })
     }
 

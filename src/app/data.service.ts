@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/Observable/throw';
 
 import { createTestCustomers } from './test-data';
 import { LoggerService } from './logger.service';
@@ -47,15 +49,24 @@ export class DataService {
             .do((custs) => {
                 this.loggerService.log(`Got ${custs.length} customers`)
             })
+            .catch((error: any) => {
+                this.loggerService.log(`Error occured ${error}`);
+                return Observable.throw('Something bad happened in getting customers please check the console');
+
+            });
     }
 
     getAddresses(): Observable<Address[]> {
         this.loggerService.log(`Getting addresses as an Observable via http...`)
 
         return this.http.get(this.addressesUrl)
-        .map(response => response.json().data as Address[])
-        .do((addresses) => {
-            this.loggerService.log(`Got ${addresses.length} addresses`)
-        })
+            .map(response => response.json().data as Address[])
+            .do((addresses) => {
+                this.loggerService.log(`Got ${addresses.length} addresses`)
+            })
+            .catch((error: any) => {
+                this.loggerService.log(`Error occured ${error}`);
+                return Observable.throw('Something bad happened in getting states please check the console');
+            });
     }
 }
