@@ -1,44 +1,38 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Address } from './model';
+
+import { DataService } from './data.service';
+import { LoggerService } from './logger.service';
 
 @Component({
     moduleId: module.id,
     selector: 'address-comp',
     templateUrl: 'address.component.html'
 })
-export class AddressComponent {
+export class AddressComponent implements OnInit {
 
-    addresses: Address[] = [
-        {
-            street: '123 Main Street',
-            city: 'Anytown',
-            state: 'California',
-            region: 'West'
-        },
-        {
-            street: '456 Rue de Main',
-            city: 'Quebec City',
-            state: 'Quebec',
-            region: 'East'
-        },
-        {
-            street: '789 Calle Principal',
-            city: 'Guadalajara',
-            state: 'Jalisco',
-            region: 'South'
-        },
-        {
-            street: '137 DeKoven Street',
-            city: 'Chicago',
-            state: 'Illinois',
-            region: 'Midwest'
-        },
-    ];
+    constructor(
+        private dataService: DataService,
+        private loggerService: LoggerService
+    ) { }
 
-    // regions = ['East', 'South', 'North', 'West', 'Midwest'];
-    // states = ['California', 'Quebec', 'Jalisco', 'Illinois'];
+    addresses: Address[] = [];
 
     @Input() address: Address;
 
-    showAddress = true;
+    ngOnInit() {
+        this.getAddresses();
+    }
+
+    getAddresses(){
+        this.loggerService.log(`Getting addresses...`);
+        this.dataService.getAddresses().subscribe(receivedAddresses => {
+            this.addresses = receivedAddresses;
+        }, (errorMsg: string) => {
+            alert(errorMsg);
+        })
+    }
+
+
+    showAddress = true;    
 }
